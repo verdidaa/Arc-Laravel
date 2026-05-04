@@ -8,7 +8,7 @@ const seededAccounts = [
     name: 'Olivia',
     role: 'Store Administrator',
     accessLevel: 'admin',
-    completion: 150,
+    completion: 9999,
   },
   {
     id: 2,
