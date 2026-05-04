@@ -12,7 +12,7 @@ export const products = [
     category: 'Audio',
     stock: 84,
     price: '$129.00',
-    status: 'Active',
+    status: 'Low Stock',
   },
   {
     name: 'Smart Watch Pro',
