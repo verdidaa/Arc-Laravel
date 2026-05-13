@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import StatusChip from '../atoms/StatusChip.jsx';
 
-function RecentOrdersCard({ orders }) {
+function RecentOrdersCard({ emptyMessage = 'No recent orders found.', orders }) {
   return (
     <Card
       elevation={0}
@@ -26,21 +26,25 @@ function RecentOrdersCard({ orders }) {
         <Typography color="text.secondary" sx={{ mb: 2 }}>
           Latest activity from your store
         </Typography>
-        <List disablePadding>
-          {orders.map((order, index) => (
-            <Box key={order.id}>
-              <ListItem disableGutters sx={{ py: 1.25 }}>
-                <ListItemText
-                  primary={`${order.id} - ${order.customer}`}
-                  secondary={`Total ${order.total}`}
-                  primaryTypographyProps={{ fontWeight: 600 }}
-                />
-                <StatusChip label={order.state} />
-              </ListItem>
-              {index < orders.length - 1 ? <Divider /> : null}
-            </Box>
-          ))}
-        </List>
+        {orders.length ? (
+          <List disablePadding>
+            {orders.map((order, index) => (
+              <Box key={order.id}>
+                <ListItem disableGutters sx={{ py: 1.25 }}>
+                  <ListItemText
+                    primary={`${order.id} - ${order.customer}`}
+                    secondary={`Total ${order.total}`}
+                    primaryTypographyProps={{ fontWeight: 600 }}
+                  />
+                  <StatusChip label={order.state} />
+                </ListItem>
+                {index < orders.length - 1 ? <Divider /> : null}
+              </Box>
+            ))}
+          </List>
+        ) : (
+          <Typography color="text.secondary">{emptyMessage}</Typography>
+        )}
       </CardContent>
     </Card>
   );

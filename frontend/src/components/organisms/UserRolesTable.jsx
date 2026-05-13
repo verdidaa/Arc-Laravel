@@ -25,9 +25,8 @@ function UserRolesTable({ roles }) {
       <CardContent sx={{ p: 0 }}>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
-          justifyContent="space-between"
           spacing={2}
-          sx={{ px: 3, py: 2.5 }}
+          sx={{ justifyContent: 'space-between', px: 3, py: 2.5 }}
         >
           <Box>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>

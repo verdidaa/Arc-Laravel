@@ -5,13 +5,9 @@ import ProductTable from '../organisms/ProductTable.jsx';
 import Sidebar from '../organisms/Sidebar.jsx';
 
 function UserDashboardTemplate({
-  currentPage,
   navItems,
-  onAddProduct,
-  onEditProduct,
+  notice,
   onLogout,
-  onPageChange,
-  pageCount,
   products,
   user,
 }) {
@@ -41,19 +37,14 @@ function UserDashboardTemplate({
 
           <Box sx={{ p: { xs: 3, md: 4 }, backgroundColor: '#f8fafc' }}>
             <DashboardHeader
-              primaryActionLabel="My Orders"
-              subtitle="Browse the product catalog available to your user account."
+              subtitle="This view is now backed by the Laravel API and your database record."
               title={`${user.name}`}
             />
 
             <ProductTable
-              currentPage={currentPage}
-              onAddProduct={onAddProduct}
-              onEditProduct={onEditProduct}
-              onPageChange={onPageChange}
-              pageCount={pageCount}
+              emptyMessage={notice}
               products={products}
-              subtitle="Visible products for the signed-in user account"
+              subtitle="Products assigned to your account from the backend database"
               title="Available Products"
             />
           </Box>
