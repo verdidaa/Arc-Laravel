@@ -1,12 +1,19 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminDashboardPage from './components/pages/AdminDashboardPage.jsx';
 import LoginPage from './components/pages/LoginPage.jsx';
 import UserDashboardPage from './components/pages/UserDashboardPage.jsx';
-import { logoutUser } from './features/auth/authSlice.js';
+import { fetchCurrentUser, logoutUser } from './features/auth/authSlice.js';
 
 function App() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.auth.user);
+  const { token, user: sessionUser } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [dispatch, token]);
 
   if (!sessionUser) {
     return <LoginPage />;

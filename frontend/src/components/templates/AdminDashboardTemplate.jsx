@@ -11,7 +11,9 @@ import UserRolesTable from '../organisms/UserRolesTable.jsx';
 function AdminDashboardTemplate({
   navItems,
   onLogout,
+  orderNotice,
   orders,
+  productNotice,
   products,
   roles,
   stats,
@@ -50,6 +52,7 @@ function AdminDashboardTemplate({
                 <Box sx={{ display: 'grid', gap: 3 }}>
                   <UserRolesTable roles={roles} />
                   <ProductTable
+                    emptyMessage={productNotice}
                     products={products}
                     subtitle="Catalog overview currently managed by admin users"
                     title="Managed Products"
@@ -59,7 +62,7 @@ function AdminDashboardTemplate({
 
               <Stack spacing={3}>
                 <ProfileCard user={user} />
-                <RecentOrdersCard orders={orders} />
+                <RecentOrdersCard emptyMessage={orderNotice} orders={orders} />
               </Stack>
             </Box>
           </Box>

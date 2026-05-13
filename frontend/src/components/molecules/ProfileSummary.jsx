@@ -3,7 +3,7 @@ import { Avatar, Box, LinearProgress, Stack, Typography } from '@mui/material';
 function ProfileSummary({ user }) {
   return (
     <>
-      <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'center', mb: 2 }}>
         <Avatar sx={{ width: 56, height: 56, bgcolor: '#1d4ed8' }}>OA</Avatar>
         <Box>
           <Typography variant="h6" sx={{ fontWeight: 700 }}>

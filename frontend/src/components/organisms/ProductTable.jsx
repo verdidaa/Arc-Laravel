@@ -19,6 +19,7 @@ import StatusChip from '../atoms/StatusChip.jsx';
 function ProductTable({
   onAddProduct,
   currentPage = 1,
+  emptyMessage = 'No products found.',
   onEditProduct,
   onPageChange,
   pageCount = 1,
@@ -40,10 +41,13 @@ function ProductTable({
       <CardContent sx={{ p: 0 }}>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
-          justifyContent="space-between"
-          alignItems={{ xs: 'flex-start', sm: 'center' }}
           spacing={2}
-          sx={{ px: 3, py: 2.5 }}
+          sx={{
+            alignItems: { xs: 'flex-start', sm: 'center' },
+            justifyContent: 'space-between',
+            px: 3,
+            py: 2.5,
+          }}
         >
           <Box>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>
@@ -53,7 +57,7 @@ function ProductTable({
               {subtitle}
             </Typography>
           </Box>
-          <Stack direction="row" spacing={1.5} alignItems="center">
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
             <InfoBadge label={`${products.length} items`} />
             {showAddButton ? (
               <PrimaryButton onClick={onAddProduct}>Add Product</PrimaryButton>
@@ -74,40 +78,51 @@ function ProductTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.sku} hover>
-                <TableCell sx={{ fontWeight: 600 }}>{product.name}</TableCell>
-                <TableCell>{product.sku}</TableCell>
-                <TableCell>{product.category}</TableCell>
-                <TableCell>{product.stock}</TableCell>
-                <TableCell>{product.price}</TableCell>
-                <TableCell>
-                  <StatusChip label={product.status} />
-                </TableCell>
-                {showActions ? (
-                  <TableCell align="right">
-                    <IconButton
-                      aria-label={`Edit ${product.name}`}
-                      onClick={() => onEditProduct(product)}
-                      size="small"
-                      sx={{
-                        border: '1px solid rgba(15, 23, 42, 0.12)',
-                        borderRadius: 2,
-                      }}
-                    >
-                      <Typography component="span" sx={{ fontSize: '0.9rem' }}>
-                        Edit
-                      </Typography>
-                    </IconButton>
+            {products.length ? (
+              products.map((product) => (
+                <TableRow key={product.sku} hover>
+                  <TableCell sx={{ fontWeight: 600 }}>{product.name}</TableCell>
+                  <TableCell>{product.sku}</TableCell>
+                  <TableCell>{product.category}</TableCell>
+                  <TableCell>{product.stock}</TableCell>
+                  <TableCell>{product.price}</TableCell>
+                  <TableCell>
+                    <StatusChip label={product.status} />
                   </TableCell>
-                ) : null}
+                  {showActions ? (
+                    <TableCell align="right">
+                      <IconButton
+                        aria-label={`Edit ${product.name}`}
+                        onClick={() => onEditProduct(product)}
+                        size="small"
+                        sx={{
+                          border: '1px solid rgba(15, 23, 42, 0.12)',
+                          borderRadius: 2,
+                        }}
+                      >
+                        <Typography component="span" sx={{ fontSize: '0.9rem' }}>
+                          Edit
+                        </Typography>
+                      </IconButton>
+                    </TableCell>
+                  ) : null}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={showActions ? 7 : 6}
+                  sx={{ py: 4, textAlign: 'center', color: 'text.secondary' }}
+                >
+                  {emptyMessage}
+                </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
 
         {pageCount > 1 ? (
-          <Stack direction="row" justifyContent="flex-end" sx={{ px: 3, py: 2 }}>
+          <Stack direction="row" sx={{ justifyContent: 'flex-end', px: 3, py: 2 }}>
             <Pagination
               color="primary"
               count={pageCount}
